@@ -10,7 +10,7 @@ ENV PYTHONUNBUFFERED=1
 RUN apt-get update && \
     apt-get install -y python3 python3-pip python3-venv unzip curl \
     less groff jq wget lsb-release software-properties-common \
-    ca-certificates apt-transport-https
+    ca-certificates apt-transport-https nginx
 
     # Install the gitlab-runner
 RUN curl -s -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | bash

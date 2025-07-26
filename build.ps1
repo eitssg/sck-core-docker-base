@@ -36,7 +36,11 @@ docker buildx build `
    --build-arg NEXUS_SERVER=$env:NEXUS_SERVER `
    --build-arg PIP_INDEX_URL=$env:PIP_INDEX_URL `
    -t ${dockerPublisher}/${packageName}:latest `
-   --push .
+   --load .
+
+# Push the locally loaded image to the remote repository
+Write-Host "Pushing image to ${dockerPublisher}..."
+docker push ${dockerPublisher}/${packageName}:latest
 
 # Print a message indicating the build is complete
-Write-Host "Docker image '${packageName}:latest' built successfully."
+Write-Host "Docker image '${packageName}:latest' built and pushed successfully."
