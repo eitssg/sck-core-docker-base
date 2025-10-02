@@ -10,9 +10,9 @@ ENV PYTHONUNBUFFERED=1
 RUN apt-get update && \
     apt-get install -y python3 python3-pip python3-venv unzip curl \
     less groff jq wget lsb-release software-properties-common \
-    ca-certificates apt-transport-https nginx
+    ca-certificates apt-transport-https nginx uv
 
-    # Install the gitlab-runner
+# Install the gitlab-runner
 RUN curl -s -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | bash
 
 # Install additional dependencies for gitlab-runner
@@ -30,11 +30,11 @@ RUN apt-get clean
 # Install AWS CLI 2.0 x86 or aarch64
 ARG ARCH
 RUN if [ "$ARCH" = "amd64" ]; then \
-        ARCH1="x86_64"; \
+    ARCH1="x86_64"; \
     elif [ "$ARCH" = "arm64" ]; then \
-        ARCH1="aarch64"; \
+    ARCH1="aarch64"; \
     else \
-        echo "Unsupported architecture: $ARCH"; exit 1; \
+    echo "Unsupported architecture: $ARCH"; exit 1; \
     fi && \
     curl -s "https://awscli.amazonaws.com/awscli-exe-linux-${ARCH1}.zip" -o "awscliv2.zip" && \
     unzip -qq awscliv2.zip && \
@@ -66,10 +66,9 @@ ARG PIP_INDEX_URL
 ENV NEXUS_SERVER=$NEXUS_SERVER
 ENV PIP_INDEX_URL=$PIP_INDEX_URL
 
-# Activate the virtual environment and install Poetry
+# Activate the virtual environment and install UV
 RUN source /home/core/.venv/bin/activate && \
-    python -m pip install --upgrade pip && \
-    pip install poetry poetry-dynamic-versioning polib
+    python -m pip install --upgrade pip && 
 
 # Install the Python aws CDK module
 RUN source /home/core/.venv/bin/activate && pip install aws-cdk-core constructs
