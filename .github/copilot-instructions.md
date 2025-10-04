@@ -1,5 +1,8 @@
 # Copilot Instructions (Submodule: sck-core-docker-base)
 
+## Plan → Approval → Execute (Mandatory)
+Any base image layer, dependency pin, or build arg modification requires prior plan & approval.
+
 - Tech: Docker base images.
 - Precedence: Local first; then root `../../.github/...`.
 - Conventions: Favor slim, pinned images and multi-stage builds. Avoid leaking secrets into layers.
